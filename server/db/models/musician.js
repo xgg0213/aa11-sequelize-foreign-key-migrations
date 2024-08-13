@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const musicianinstrument = require('./musicianinstrument');
 module.exports = (sequelize, DataTypes) => {
   class Musician extends Model {
     /**
@@ -14,6 +15,14 @@ module.exports = (sequelize, DataTypes) => {
       Musician.belongsTo(
         models.Band,
         { foreignKey: 'id' }
+      );
+      Musician.belongsToMany(
+        models.Instrument,
+        {through: models.MusicianInstrument,
+          foreignKey:'musicianId',
+          otherKey: 'instrumentId'
+
+        }
       )
     }
   };
